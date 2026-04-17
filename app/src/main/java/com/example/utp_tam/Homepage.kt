@@ -26,22 +26,22 @@ val GarudaBlue = Color(0xFF004684)
 val GarudaLightBlue = Color(0xFF005DAA)
 
 @Composable
-fun HomePage() {
+fun HomePage(onBookNowClick: () -> Unit, onMoreClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .background(Color.White)
     ) {
-        HeaderSection()
-        BookingCard()
+        HeaderSection(onMoreClick)
+        BookingCard(onBookNowClick)
         ActionIconsSection()
         OffersSection()
     }
 }
 
 @Composable
-fun HeaderSection() {
+fun HeaderSection(onMoreClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,11 +83,13 @@ fun HeaderSection() {
                     modifier = Modifier.height(40.dp)
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.menu),
-                contentDescription = "Menu",
-                modifier = Modifier.size(32.dp)
-            )
+            IconButton(onClick = onMoreClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.menu),
+                    contentDescription = "Menu",
+                    modifier = Modifier.size(32.dp)
+                )
+            }
         }
 
         // Hero Text
@@ -118,7 +120,7 @@ fun HeaderSection() {
 }
 
 @Composable
-fun BookingCard() {
+fun BookingCard(onBookNowClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -151,7 +153,7 @@ fun BookingCard() {
                     Text(text = "Arrival City", color = Color.LightGray, fontSize = 12.sp)
                 }
                 Button(
-                    onClick = { /* TODO */ },
+                    onClick = onBookNowClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White.copy(alpha = 0.2f)),
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.height(60.dp)
@@ -233,10 +235,4 @@ fun OffersSection() {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomePagePreview() {
-    HomePage()
 }

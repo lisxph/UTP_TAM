@@ -12,15 +12,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
-fun BookingPage() {
+fun BookingPage(onBackClick: () -> Unit, onMoreClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,6 +50,14 @@ fun BookingPage() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow),
+                        contentDescription = "Back",
+                        tint = Color.White,
+                        modifier = Modifier.size(32.dp).graphicsLayer(rotationZ = 180f)
+                    )
+                }
                 Text(
                     text = "Booking",
                     color = Color.White,
@@ -55,7 +65,7 @@ fun BookingPage() {
                     fontWeight = FontWeight.Bold
                 )
                 Button(
-                    onClick = { /* TODO */ },
+                    onClick = onMoreClick,
                     colors = ButtonDefaults.buttonColors(containerColor = GarudaBlue),
                     shape = RoundedCornerShape(20.dp),
                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp)
@@ -214,5 +224,5 @@ fun BookingInputRow(iconRes: Int, label: String, value: String) {
 @Preview(showBackground = true)
 @Composable
 fun BookingPagePreview() {
-    BookingPage()
+    BookingPage(onBackClick = {}, onMoreClick = {})
 }

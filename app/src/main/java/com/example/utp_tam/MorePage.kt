@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MorePage() {
+fun MorePage(onHomeClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,11 +48,13 @@ fun MorePage() {
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray
             )
-            Image(
-                painter = painterResource(id = R.drawable.home),
-                contentDescription = "Home",
-                modifier = Modifier.size(32.dp)
-            )
+            IconButton(onClick = onHomeClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.home),
+                    contentDescription = "Home",
+                    modifier = Modifier.size(32.dp)
+                )
+            }
         }
 
         // Grid Menu
@@ -177,5 +179,5 @@ fun MoreMenuItem(item: MenuItem) {
 @Preview(showBackground = true)
 @Composable
 fun MorePagePreview() {
-    MorePage()
+    MorePage(onHomeClick = {})
 }
